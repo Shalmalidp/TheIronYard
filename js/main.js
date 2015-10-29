@@ -11,3 +11,6 @@ let $app = $('.app');
 // var router = new Router($app).start() can be written as below
 new Router($app).start();
 
+console.log('this is running');
+
+

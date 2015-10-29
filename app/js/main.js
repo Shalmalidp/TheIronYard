@@ -17,7 +17,7 @@ _jquery2['default'].ajaxSetup({
 
 });
 
-},{"./parse_data":3,"jquery":10}],2:[function(require,module,exports){
+},{"./parse_data":3,"jquery":17}],2:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -46,7 +46,9 @@ var $app = (0, _jquery2['default'])('.app');
 // var router = new Router($app).start() can be written as below
 new _router2['default']($app).start();
 
-},{"./ajax_setup":1,"./router":7,"jquery":10,"moment":11,"underscore":12}],3:[function(require,module,exports){
+console.log('this is running');
+
+},{"./ajax_setup":1,"./router":7,"jquery":17,"moment":18,"underscore":19}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -108,7 +110,7 @@ exports['default'] = _Backbone2['default'].Collection.extend({
 });
 module.exports = exports['default'];
 
-},{"../parse_data":3,"./single":6,"Backbone":8}],6:[function(require,module,exports){
+},{"../parse_data":3,"./single":6,"Backbone":15}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -135,8 +137,12 @@ exports['default'] = _backbone2['default'].Model.extend({
 });
 module.exports = exports['default'];
 
-},{"../parse_data":3,"backbone":9}],7:[function(require,module,exports){
+},{"../parse_data":3,"backbone":16}],7:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -148,9 +154,250 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+//import {Home} from './views';
+
 var _resources = require('./resources');
 
-},{"./resources":4,"Backbone":8,"jquery":10}],8:[function(require,module,exports){
+var _views = require('./views');
+
+exports['default'] = _Backbone2['default'].Router.extend({
+  routes: {
+    "": "home",
+    "members": "membersCollection",
+    "single/:id": "singleList",
+    "addForm": "addRecord",
+    "updateForm": "updateRecord",
+    "deleteRecord": "deleteRecord"
+  },
+
+  start: function start() {
+    _Backbone2['default'].history.start();
+  },
+
+  initialize: function initialize(appElement) {
+    var _this = this;
+
+    this.$el = appElement;
+    //creating collection instance to use to add info to collections or manipulate info;
+    this.collection = new _resources.Members();
+
+    //home page add button
+    this.$el.on('click', '.add', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var Obj = $button.data('add-me');
+      _this.navigate(Obj, { trigger: true });
+    });
+
+    //save button on the add page
+
+    this.$el.on('click', '.save', function (event) {
+      var $button = event.currentTarget;
+      var saveObj = $button.data('save-btn');
+    });
+
+    //home page update button
+    this.$el.on('click', '.update', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var Obj = $button.data('upd-me');
+      _this.navigate('updateRecord', { trigger: true });
+    });
+    //home page View button
+    this.$el.on('click', '.view', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var Obj = $button.data('view-me');
+      //console.log('im in the click of ', Obj);
+      _this.navigate('MembersView', { trigger: true });
+    }),
+
+    //home page delete button
+    this.$el.on('click', '.delete', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var Obj = $button.data('del-me');
+      _this.navigate('deleteRecord', { trigger: true });
+    });
+
+    //go to single's info page
+    this.$el.on('click', '.single-list-item', function (event) {
+      var $p = (0, _jquery2['default'])(even.currentTarget);
+      var sObj = $p.data(single - id);
+      _this.navigate('single/' + sObj, { trigger: true });
+    });
+  }, //end of initialize function
+
+  showSpinner: function showSpinner() {
+    this.$el.html((0, _views.Spinner)());
+  },
+
+  home: function home() {
+    console.log('im in the home');
+    this.$el.html((0, _views.Home)());
+  },
+
+  membersCollection: function membersCollection() {
+    var _this2 = this;
+
+    this.showSpinner();
+    this.collection.fetch().then(function () {
+      _this2.$el.html((0, _views.Members)(_this2.collection.toJSON()));
+    });
+  },
+
+  singleList: function singleList() {
+    // let single = this.collection.get(id);
+
+    //     if (single) {
+    //       // we found the person from the collection
+    //       this.$el.html(
+    //         singleView(
+    //           person.templateData()
+    //         )
+    //       );
+    //     } else {
+    //       this.showSpinner();
+    //       person = this.collection.add({objectId: id});
+    //       person.fetch().then(() => {
+    //         this.$el.html(
+    //           PersonView(
+    //             person.templateData()
+    //           )
+    //         );
+    //       });
+    //     }
+
+  },
+
+  addRecord: function addRecord() {
+    this.$el.html((0, _views.Add)());
+  },
+  updateRecord: function updateRecord() {},
+
+  deleteRecord: function deleteRecord() {
+    alert('You are not Authorised to delete data');
+  }
+
+});
+module.exports = exports['default'];
+
+},{"./resources":4,"./views":10,"Backbone":15,"jquery":17}],8:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports["default"] = function () {
+  return;
+  "\n<h4> Add Members</h4>\n<form>\n<label>Name <input class ='name' type='text' placeholder=\"Enter Name\"  ></label>\n<label>Designation<input class ='designation' type='text' placeholder=\"Enter Designation\"  ></label>\n<label>Phone <input class ='phone' type='text' placeholder=\"Phone\"  ></label>\n<label>Email <input class ='email' type='text' placeholder=\"Email Address\"  ></label>\n<label>Location <input class ='loc' type='text' placeholder=\"Location\"  ></label>\n<label>State <input class ='st' type='text' placeholder=\"State\"  ></label>\n<button class='save' data-save-btn>Save</button>\n</form>\n";
+};
+
+;
+module.exports = exports["default"];
+
+},{}],9:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports["default"] = function () {
+  return "\n    <div class =\"home\" >\n      <h3> The Iron Yard Family </h3>\n      <div class    = \"button-area\">\n      <button class =\"add\" data-add-me=\"Add\" > Add Records </button>\n      <button class =\"update\" data-upd-me=\"Update\" >Update Records</button>\n      <button class =\"view\" data-view-me=\"MembersView\">View Database</button>\n      <button class =\"delete\" data-del-me=\"Home\">Delete Records</button>  \n    </div>\n      ";
+};
+
+;
+module.exports = exports["default"];
+
+},{}],10:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _single = require('./single');
+
+var _single2 = _interopRequireDefault(_single);
+
+var _members = require('./members');
+
+var _members2 = _interopRequireDefault(_members);
+
+var _spinner = require('./spinner');
+
+var _spinner2 = _interopRequireDefault(_spinner);
+
+var _home = require('./home');
+
+var _home2 = _interopRequireDefault(_home);
+
+var _add = require('./add');
+
+var _add2 = _interopRequireDefault(_add);
+
+var _update = require('./update');
+
+var _update2 = _interopRequireDefault(_update);
+
+exports.Single = _single2['default'];
+exports.Members = _members2['default'];
+exports.Add = _add2['default'];
+exports.Update = _update2['default'];
+exports.Spinner = _spinner2['default'];
+exports.Home = _home2['default'];
+
+},{"./add":8,"./home":9,"./members":11,"./single":12,"./spinner":13,"./update":14}],11:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+function display(data) {
+  return data.map(function (item) {
+    return '\n      <p>class="single-list-item" data-single-id="' + item.objectId + '">' + item.Name + '</p>\n    ';
+  }).join('');
+}
+
+exports['default'] = function (data) {
+  return '\n    <div class="members-list">\n      <h1>Our Iron Yard Family</h1>\n      <div>' + display(data) + '</div>\n    </div>\n  ';
+};
+
+module.exports = exports['default'];
+
+},{}],12:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports["default"] = function (data) {
+  return "\n    <div class=\"single\">\n      <button class=\"back-button\" data-to=\"MembersView\">\n        <i class=\"fa fa-arrow-left\"></i>\n      </button>\n      <p>" + data.Photo + "</p>\n      <p>" + data.Name + "</p>\n      <p>" + data.Designation + "</p>\n      <p>" + data.Phone + "</p>      \n      <p>" + data.Email + "</p>\n      <p>" + data.Location + "</p>\n      <p>" + data.State + "</p>      \n    </div>\n  ";
+};
+
+// <div class="gravatar">
+//   <img src="${data.Gravatar}">
+// </div>
+module.exports = exports["default"];
+
+},{}],13:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports["default"] = function () {
+  return "\n    <h1 class=\"spinner\">\n      <i class=\"fa fa-spinner fa-spin\"></i>\n    </h1>\n  ";
+};
+
+module.exports = exports["default"];
+
+},{}],14:[function(require,module,exports){
+"use strict";
+
+},{}],15:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2049,7 +2296,7 @@ var _resources = require('./resources');
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":10,"underscore":12}],9:[function(require,module,exports){
+},{"jquery":17,"underscore":19}],16:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -3948,7 +4195,7 @@ var _resources = require('./resources');
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":10,"underscore":12}],10:[function(require,module,exports){
+},{"jquery":17,"underscore":19}],17:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -13160,7 +13407,7 @@ return jQuery;
 
 }));
 
-},{}],11:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -16356,7 +16603,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],12:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
