@@ -1,7 +1,7 @@
-import Single from './single';
-import Members from './members';
+import SingleModel from './single_model';
+import MembersCollection from './members_collection';
 
 export{
-	Single,
-	Members
+	SingleModel,
+	MembersCollection
 };

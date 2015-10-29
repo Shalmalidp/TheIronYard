@@ -10,7 +10,7 @@ var _jquery2 = _interopRequireDefault(_jquery);
 var _parse_data = require('./parse_data');
 
 _jquery2['default'].ajaxSetup({
-	header: {
+	headers: {
 		'X-Parse-Application-Id': _parse_data.APP_ID,
 		'X-Parse-REST-API-Key': _parse_data.API_REST_KEY
 	}
@@ -71,18 +71,18 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _single = require('./single');
+var _single_model = require('./single_model');
 
-var _single2 = _interopRequireDefault(_single);
+var _single_model2 = _interopRequireDefault(_single_model);
 
-var _members = require('./members');
+var _members_collection = require('./members_collection');
 
-var _members2 = _interopRequireDefault(_members);
+var _members_collection2 = _interopRequireDefault(_members_collection);
 
-exports.Single = _single2['default'];
-exports.Members = _members2['default'];
+exports.SingleModel = _single_model2['default'];
+exports.MembersCollection = _members_collection2['default'];
 
-},{"./members":5,"./single":6}],5:[function(require,module,exports){
+},{"./members_collection":5,"./single_model":6}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -95,22 +95,22 @@ var _Backbone = require('Backbone');
 
 var _Backbone2 = _interopRequireDefault(_Backbone);
 
-var _single = require('./single');
+var _single_model = require('./single_model');
 
-var _single2 = _interopRequireDefault(_single);
+var _single_model2 = _interopRequireDefault(_single_model);
 
 var _parse_data = require('../parse_data');
 
 exports['default'] = _Backbone2['default'].Collection.extend({
 	url: _parse_data.APP_URL,
-	model: _single2['default'],
+	model: _single_model2['default'],
 	parse: function parse(data) {
 		return data.results;
 	}
 });
 module.exports = exports['default'];
 
-},{"../parse_data":3,"./single":6,"Backbone":15}],6:[function(require,module,exports){
+},{"../parse_data":3,"./single_model":6,"Backbone":15}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -179,7 +179,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
 
     this.$el = appElement;
     //creating collection instance to use to add info to collections or manipulate info;
-    this.collection = new _resources.Members();
+    this.collection = new _resources.MembersCollection();
 
     //home page add button
     this.$el.on('click', '.add', function (event) {
@@ -189,10 +189,21 @@ exports['default'] = _Backbone2['default'].Router.extend({
     });
 
     //save button on the add page
-
     this.$el.on('click', '.save', function (event) {
-      var $button = event.currentTarget;
-      var saveObj = $button.data('save-btn');
+      var newMember = new _resources.SingleModel({
+        Name: (0, _jquery2['default'])('#name').val(),
+        Designation: (0, _jquery2['default'])('#designation').val(),
+        Email: (0, _jquery2['default'])('#email').val(),
+        Phone: (0, _jquery2['default'])('#phone').val(),
+        Location: (0, _jquery2['default'])('#loc').val(),
+        State: (0, _jquery2['default'])('#st').val()
+      });
+
+      newMember.save().then(function () {
+        var $button = (0, _jquery2['default'])(event.currentTarget);
+        var Obj = $button.data('save-btn');
+        _this.navigate('', { trigger: true });
+      });
     });
 
     //home page update button
@@ -204,6 +215,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
     //home page View button
     this.$el.on('click', '.view', function (event) {
       var $button = (0, _jquery2['default'])(event.currentTarget);
+      var Obj = $button.data('view-me');
       _this.navigate('members', { trigger: true });
     }),
 
@@ -216,9 +228,16 @@ exports['default'] = _Backbone2['default'].Router.extend({
 
     //go to single's info page
     this.$el.on('click', '.single-list-item', function (event) {
-      var $p = (0, _jquery2['default'])(even.currentTarget);
-      var sObj = $p.data(single - id);
+      var $p = (0, _jquery2['default'])(event.currentTarget);
+      var sObj = $p.data('single-id');
       _this.navigate('single/' + sObj, { trigger: true });
+    });
+
+    // arrow button on single template
+    this.$el.on('click', '.back-button', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var obj = $button.data('to');
+      _this.navigate('members', { trigger: true });
     });
   }, //end of initialize function
 
@@ -228,7 +247,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
 
   home: function home() {
     //console.log ('im in the home');
-    this.$el.html((0, _views.Home)());
+    this.$el.html((0, _views.HomeTemplate)());
   },
 
   membersCollection: function membersCollection() {
@@ -236,7 +255,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
 
     this.showSpinner();
     this.collection.fetch().then(function () {
-      _this2.$el.html((0, _views.Members)(_this2.collection.toJSON()));
+      _this2.$el.html((0, _views.MembersTemplate)(_this2.collection.toJSON()));
     });
   },
 
@@ -247,7 +266,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
     var x = this.collection.get(objID);
     //console.log(x);
     if (x) {
-      this.$el.html(SingleTemplate(x.toJSON()));
+      this.$el.html((0, _views.SingleTemplate)(x.toJSON()));
     } else {
       (function () {
         var data2 = _this3;
@@ -255,7 +274,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
         //this.showSpinner();
         console.log(x);
         x.fetch().then(function () {
-          data2.$el.html(SingleTemplate(x.toJSON()));
+          data2.$el.html((0, _views.SingleTemplate)(x.toJSON()));
           //console.log(x.toJSON()); //i get data here
         });
       })();
@@ -263,9 +282,13 @@ exports['default'] = _Backbone2['default'].Router.extend({
   },
 
   addRecord: function addRecord() {
-    this.$el.html((0, _views.Add)());
+    this.showSpinner();
+    this.$el.html((0, _views.AddTemplate)());
   },
-  updateRecord: function updateRecord() {},
+
+  updateRecord: function updateRecord() {
+    alert('COMING SOON......');
+  },
 
   deleteRecord: function deleteRecord() {
     alert('You are not Authorised to delete data');
@@ -280,12 +303,12 @@ module.exports = exports['default'];
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 exports["default"] = function () {
-  return;
-  "\n<h4> Add Members</h4>\n<form>\n<label>Name <input class ='name' type='text' placeholder=\"Enter Name\"  ></label>\n<label>Designation<input class ='designation' type='text' placeholder=\"Enter Designation\"  ></label>\n<label>Phone <input class ='phone' type='text' placeholder=\"Phone\"  ></label>\n<label>Email <input class ='email' type='text' placeholder=\"Email Address\"  ></label>\n<label>Location <input class ='loc' type='text' placeholder=\"Location\"  ></label>\n<label>State <input class ='st' type='text' placeholder=\"State\"  ></label>\n<button class='save' data-save-btn>Save</button>\n</form>\n";
+
+    return "\n<h4> Add Members</h4>\n<form>\n<label>Name <input id=\"name\" type='text' placeholder=\"Enter Name\"  ></label>\n<label>Designation<input id='designation' type='text' placeholder=\"Enter Designation\"  ></label>\n<label>Phone <input id='phone' type='text' placeholder=\"Phone\"  ></label>\n<label>Email <input id='email' type='text' placeholder=\"Email Address\"  ></label>\n<label>Location <input id='loc' type='text' placeholder=\"Location\"></label>\n<label>State <input id='st' type='text' placeholder=\"State\"  ></label>\n<button class='save' data-save-btn='AddTemplate'>Save</button>\n<button class = 'cancel' data-cancel-add=\"HomeTemplate\">Cancel </button>\n</form>\n<button class=\"back-button\" data-to=\"MembersTemplate\">\n    <i class=\"fa fa-arrow-left\"></i>\n</button>\n";
 };
 
 ;
@@ -299,7 +322,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports["default"] = function () {
-  return "\n    <div class =\"home\" >\n      <h3> The Iron Yard Family </h3>\n      <div class    = \"button-area\">\n      <button class =\"add\" data-add-me=\"Add\" > Add Records </button>\n      <button class =\"update\" data-upd-me=\"Update\" >Update Records</button>\n      <button class =\"view\" data-view-me=\"MembersView\">View Database</button>\n      <button class =\"delete\" data-del-me=\"Home\">Delete Records</button>  \n    </div>\n      ";
+  return "\n    <div class =\"home\" >\n      <h3> The Iron Yard Family </h3>\n      <div class    = \"button-area\">\n      <button class =\"add\" data-add-me=\"AddTemplate\" > Add Records </button>\n      <button class =\"update\" data-upd-me=\"UpdateTemplate\" >Update Records</button>\n      <button class =\"view\" data-view-me=\"members\">View Database</button>\n      <button class =\"delete\" data-del-me=\"Home\">Delete Records</button>  \n    </div>\n      ";
 };
 
 ;
@@ -314,38 +337,38 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _single = require('./single');
+var _single_template = require('./single_template');
 
-var _single2 = _interopRequireDefault(_single);
+var _single_template2 = _interopRequireDefault(_single_template);
 
-var _members = require('./members');
+var _members_template = require('./members_template');
 
-var _members2 = _interopRequireDefault(_members);
+var _members_template2 = _interopRequireDefault(_members_template);
 
 var _spinner = require('./spinner');
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
-var _home = require('./home');
+var _home_template = require('./home_template');
 
-var _home2 = _interopRequireDefault(_home);
+var _home_template2 = _interopRequireDefault(_home_template);
 
-var _add = require('./add');
+var _add_template = require('./add_template');
 
-var _add2 = _interopRequireDefault(_add);
+var _add_template2 = _interopRequireDefault(_add_template);
 
-var _update = require('./update');
+var _update_template = require('./update_template');
 
-var _update2 = _interopRequireDefault(_update);
+var _update_template2 = _interopRequireDefault(_update_template);
 
-exports.Single = _single2['default'];
-exports.Members = _members2['default'];
-exports.Add = _add2['default'];
-exports.Update = _update2['default'];
+exports.SingleTemplate = _single_template2['default'];
+exports.MembersTemplate = _members_template2['default'];
+exports.AddTemplate = _add_template2['default'];
+exports.UpdateTemplate = _update_template2['default'];
 exports.Spinner = _spinner2['default'];
-exports.Home = _home2['default'];
+exports.HomeTemplate = _home_template2['default'];
 
-},{"./add":8,"./home":9,"./members":11,"./single":12,"./spinner":13,"./update":14}],11:[function(require,module,exports){
+},{"./add_template":8,"./home_template":9,"./members_template":11,"./single_template":12,"./spinner":13,"./update_template":14}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -353,12 +376,12 @@ Object.defineProperty(exports, '__esModule', {
 });
 function display(data) {
   return data.map(function (item) {
-    return '\n      <p>class="single-list-item" data-single-id="' + item.objectId + '">' + item.Name + '</p>\n    ';
+    return '\n      <p class="single-list-item" data-single-id="' + item.objectId + '">' + item.Name + ' </p>\n      <p class="desig" data-desig="' + item.objectId + '">Designation : ' + item.Designation + '</p>\n    ';
   }).join('');
 }
 
 exports['default'] = function (data) {
-  return '\n    <div class="members-list">\n      <h1>Our Iron Yard Family</h1>\n      <div>' + display(data) + '</div>\n    </div>\n  ';
+  return '\n    <div class="members-list">\n      <h1>The Iron Yard Family</h1>\n      <div>' + display(data) + '</div>\n    </div>\n\n  ';
 };
 
 module.exports = exports['default'];
@@ -371,7 +394,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports["default"] = function (data) {
-  return "\n    <div class=\"single\">\n      <button class=\"back-button\" data-to=\"MembersView\">\n        <i class=\"fa fa-arrow-left\"></i>\n      </button>\n      <p>" + data.Photo + "</p>\n      <p>" + data.Name + "</p>\n      <p>" + data.Designation + "</p>\n      <p>" + data.Phone + "</p>      \n      <p>" + data.Email + "</p>\n      <p>" + data.Location + "</p>\n      <p>" + data.State + "</p>      \n    </div>\n  ";
+  return "\n    <div class=\"single\">\n      <button class=\"back-button\" data-to=\"MembersTemplate\">\n        <i class=\"fa fa-arrow-left\"></i>\n      </button>\n      <img id=\"photo\" src='" + data.Image + "'>\n      <p>" + data.Name + "</p>\n      <p>" + data.Designation + "</p>\n      <p>" + data.Phone + "</p>      \n      <p>" + data.Email + "</p>\n      <p>" + data.Location + "</p>\n      <p>" + data.State + "</p>      \n    </div>\n  ";
 };
 
 // <div class="gravatar">
@@ -395,7 +418,17 @@ module.exports = exports["default"];
 },{}],14:[function(require,module,exports){
 "use strict";
 
-//COMING SOON
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+exports["default"] = function () {
+
+    return "\n<h4> COMING SOON .....</h4>\n<button class=\"back-button\" data-to=\"MembersTemplate\">\n    <i class=\"fa fa-arrow-left\"></i>\n</button>\n";
+};
+
+;
+module.exports = exports["default"];
 
 },{}],15:[function(require,module,exports){
 (function (global){

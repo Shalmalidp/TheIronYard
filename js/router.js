@@ -3,16 +3,15 @@ import $ from 'jquery';
 
 //import {Home} from './views';
 
-import {
-  Members as MembersCollection
-} from './resources';
+import { MembersCollection } from './resources';
+import {SingleModel} from './resources';
 
 import {
-  Members as MembersView,
-  Single as SingleView, 
-  Home,
-  Add,
-  Update,
+  MembersTemplate,
+  SingleTemplate, 
+  HomeTemplate,
+  AddTemplate,
+  UpdateTemplate,
   Spinner
 } from './views';
 
@@ -41,15 +40,25 @@ initialize(appElement){
   this.$el.on('click','.add',(event)=>{
     let $button = $(event.currentTarget);
     let Obj = $button.data('add-me');
-    this.navigate(`addForm`,{trigger : true});
+    this.navigate(`addForm`, {trigger : true});
   })
 
   //save button on the add page
-
-  this.$el.on('click','.save',(event)=>{
-    let $button = (event.currentTarget);
-    let saveObj = $button.data('save-btn');
-
+  this.$el.on('click', '.save', (event)=> {
+    let newMember = new SingleModel({
+      Name: $('#name').val(),
+      Designation: $('#designation').val(),
+      Email: $('#email').val(),
+      Phone: $('#phone').val(),
+      Location:$('#loc').val(),
+      State: $('#st').val()
+    });
+ 
+ newMember.save().then(()=>{
+   let $button = $(event.currentTarget);
+       let Obj = $button.data('save-btn');
+       this.navigate(``, {trigger: true});
+     });
   })
 
 
@@ -62,7 +71,8 @@ this.$el.on('click','.update',(event)=>{
 //home page View button
 this.$el.on('click','.view',(event)=>{
     let $button = $(event.currentTarget);
-    this.navigate(`members`, {trigger:true});
+    let Obj = $button.data('view-me');
+    this.navigate(`members`, {trigger : true});
    
   }),
 
@@ -76,10 +86,18 @@ this.$el.on('click','.delete',(event)=>{
 
 //go to single's info page 
   this.$el.on('click','.single-list-item',(event) =>{
-    let $p = $(even.currentTarget);
-    let sObj = $p.data(single-id);
+    let $p = $(event.currentTarget);
+    let sObj = $p.data('single-id');
     this.navigate(`single/${sObj}`,{trigger : true});
   });
+
+// arrow button on single template
+this.$el.on('click','.back-button',(event)=>{
+  let $button = $(event.currentTarget);
+  let obj = $button.data('to');
+  this.navigate(`members` , {trigger : true});
+})
+
 }, //end of initialize function
 
 
@@ -91,16 +109,15 @@ this.$el.html(Spinner());
 
 home(){
   //console.log ('im in the home');
-  this.$el.html(Home());
+  this.$el.html(HomeTemplate());
 },
 
 membersCollection(){
   this.showSpinner();
   this.collection.fetch().then(()=>{
-    this.$el.html(MembersView(this.collection.toJSON()));
+    this.$el.html(MembersTemplate(this.collection.toJSON()));
     
   });
-
 },
 
 
@@ -126,10 +143,14 @@ singleList : function(objID){
 
 
 addRecord(){
-  this.$el.html(Add());
+  this.showSpinner();
+  this.$el.html(AddTemplate());
+},
+
+updateRecord(){
+alert('COMING SOON......');
 
 },
-updateRecord(){},
 
 deleteRecord(){
   alert('You are not Authorised to delete data');

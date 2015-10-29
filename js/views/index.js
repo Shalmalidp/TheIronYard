@@ -1,16 +1,16 @@
-import Single from './single';
-import Members from './members';
+import SingleTemplate from './single_template';
+import MembersTemplate from './members_template';
 import Spinner from './spinner';
-import Home from './home';
-import Add from './add';
-import Update from './update';
+import HomeTemplate from './home_template';
+import AddTemplate from './add_template';
+import UpdateTemplate from './update_template';
 
 
 export {
-	Single,
-	Members,
-	Add,
-	Update,
+	SingleTemplate,
+	MembersTemplate,
+	AddTemplate,
+	UpdateTemplate,
 	Spinner,
-	Home
+	HomeTemplate
 };
