@@ -41,7 +41,7 @@ initialize(appElement){
   this.$el.on('click','.add',(event)=>{
     let $button = $(event.currentTarget);
     let Obj = $button.data('add-me');
-    this.navigate(Obj,{trigger : true});
+    this.navigate(`addForm`,{trigger : true});
   })
 
   //save button on the add page
@@ -62,9 +62,7 @@ this.$el.on('click','.update',(event)=>{
 //home page View button
 this.$el.on('click','.view',(event)=>{
     let $button = $(event.currentTarget);
-    let Obj = $button.data('view-me');
-    //console.log('im in the click of ', Obj);
-    this.navigate(`MembersView`, {trigger : true});
+    this.navigate(`members`, {trigger:true});
    
   }),
 
@@ -84,12 +82,15 @@ this.$el.on('click','.delete',(event)=>{
   });
 }, //end of initialize function
 
+
+
+
 showSpinner(){
 this.$el.html(Spinner());
 },
 
 home(){
-  console.log ('im in the home');
+  //console.log ('im in the home');
   this.$el.html(Home());
 },
 
@@ -103,30 +104,25 @@ membersCollection(){
 },
 
 
-singleList(){
-// let single = this.collection.get(id);
+singleList : function(objID){
 
-//     if (single) {
-//       // we found the person from the collection
-//       this.$el.html(
-//         singleView(
-//           person.templateData()
-//         )
-//       );
-//     } else {
-//       this.showSpinner();
-//       person = this.collection.add({objectId: id});
-//       person.fetch().then(() => {
-//         this.$el.html(
-//           PersonView(
-//             person.templateData()
-//           )
-//         );
-//       });
-//     }
-
-
-},
+    console.log(this.collection);
+    let x = this.collection.get(objID);
+    //console.log(x);
+    if(x){
+      this.$el.html(SingleTemplate(x.toJSON()));
+    }
+    else {
+      let data2 = this;
+      x = this.collection.add({objectId : objID});
+      //this.showSpinner();
+      console.log(x);
+      x.fetch().then(function(){
+        data2.$el.html(SingleTemplate(x.toJSON()) );
+        //console.log(x.toJSON()); //i get data here
+      });
+    };
+  },
 
 
 addRecord(){
@@ -147,3 +143,5 @@ deleteRecord(){
 
 
 });
+
+// export default  Router;

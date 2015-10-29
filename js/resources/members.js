@@ -1,9 +1,9 @@
 import Backbone from 'Backbone';
 import Single from './single';
-import {API_URL} from '../parse_data';
+import {APP_URL} from '../parse_data';
 
 export default Backbone.Collection.extend({
-	url   :API_URL,
+	url   :APP_URL,
 	model : Single,
 	parse(data){
 		return data.results;

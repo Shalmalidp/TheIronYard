@@ -52,7 +52,7 @@ console.log('this is running');
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
-	value: true
+    value: true
 });
 var APP_ID = '4WaESlA8TkIhQbsZ3MKjCLYlgqaRCzkOMNIkmupn';
 var API_REST_KEY = 'ysVDymQgHZ162fhIu7STXGeYkfdOc39IN2CT9rlv';
@@ -102,7 +102,7 @@ var _single2 = _interopRequireDefault(_single);
 var _parse_data = require('../parse_data');
 
 exports['default'] = _Backbone2['default'].Collection.extend({
-	url: _parse_data.API_URL,
+	url: _parse_data.APP_URL,
 	model: _single2['default'],
 	parse: function parse(data) {
 		return data.results;
@@ -185,7 +185,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
     this.$el.on('click', '.add', function (event) {
       var $button = (0, _jquery2['default'])(event.currentTarget);
       var Obj = $button.data('add-me');
-      _this.navigate(Obj, { trigger: true });
+      _this.navigate('addForm', { trigger: true });
     });
 
     //save button on the add page
@@ -204,9 +204,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
     //home page View button
     this.$el.on('click', '.view', function (event) {
       var $button = (0, _jquery2['default'])(event.currentTarget);
-      var Obj = $button.data('view-me');
-      //console.log('im in the click of ', Obj);
-      _this.navigate('MembersView', { trigger: true });
+      _this.navigate('members', { trigger: true });
     }),
 
     //home page delete button
@@ -229,7 +227,7 @@ exports['default'] = _Backbone2['default'].Router.extend({
   },
 
   home: function home() {
-    console.log('im in the home');
+    //console.log ('im in the home');
     this.$el.html((0, _views.Home)());
   },
 
@@ -242,28 +240,26 @@ exports['default'] = _Backbone2['default'].Router.extend({
     });
   },
 
-  singleList: function singleList() {
-    // let single = this.collection.get(id);
+  singleList: function singleList(objID) {
+    var _this3 = this;
 
-    //     if (single) {
-    //       // we found the person from the collection
-    //       this.$el.html(
-    //         singleView(
-    //           person.templateData()
-    //         )
-    //       );
-    //     } else {
-    //       this.showSpinner();
-    //       person = this.collection.add({objectId: id});
-    //       person.fetch().then(() => {
-    //         this.$el.html(
-    //           PersonView(
-    //             person.templateData()
-    //           )
-    //         );
-    //       });
-    //     }
-
+    console.log(this.collection);
+    var x = this.collection.get(objID);
+    //console.log(x);
+    if (x) {
+      this.$el.html(SingleTemplate(x.toJSON()));
+    } else {
+      (function () {
+        var data2 = _this3;
+        x = _this3.collection.add({ objectId: objID });
+        //this.showSpinner();
+        console.log(x);
+        x.fetch().then(function () {
+          data2.$el.html(SingleTemplate(x.toJSON()));
+          //console.log(x.toJSON()); //i get data here
+        });
+      })();
+    };
   },
 
   addRecord: function addRecord() {
@@ -276,6 +272,8 @@ exports['default'] = _Backbone2['default'].Router.extend({
   }
 
 });
+
+// export default  Router;
 module.exports = exports['default'];
 
 },{"./resources":4,"./views":10,"Backbone":15,"jquery":17}],8:[function(require,module,exports){
@@ -396,6 +394,8 @@ module.exports = exports["default"];
 
 },{}],14:[function(require,module,exports){
 "use strict";
+
+//COMING SOON
 
 },{}],15:[function(require,module,exports){
 (function (global){
