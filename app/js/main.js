@@ -206,11 +206,18 @@ exports['default'] = _Backbone2['default'].Router.extend({
       });
     });
 
+    //cancel button add page
+    this.$el.on('click', '.cancel', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var obj = $button.data('to');
+      _this.navigate('', { trigger: true });
+    });
+
     //home page update button
     this.$el.on('click', '.update', function (event) {
       var $button = (0, _jquery2['default'])(event.currentTarget);
       var Obj = $button.data('upd-me');
-      _this.navigate('updateRecord', { trigger: true });
+      _this.navigate('updateForm', { trigger: true });
     });
     //home page View button
     this.$el.on('click', '.view', function (event) {
@@ -238,6 +245,13 @@ exports['default'] = _Backbone2['default'].Router.extend({
       var $button = (0, _jquery2['default'])(event.currentTarget);
       var obj = $button.data('to');
       _this.navigate('members', { trigger: true });
+    });
+
+    //arrow on add page
+    this.$el.on('click', '.add-back-button', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var obj = $button.data('to');
+      _this.navigate('', { trigger: true });
     });
   }, //end of initialize function
 
@@ -288,10 +302,12 @@ exports['default'] = _Backbone2['default'].Router.extend({
 
   updateRecord: function updateRecord() {
     alert('COMING SOON......');
+    this.navigate('', { trigger: true });
   },
 
   deleteRecord: function deleteRecord() {
     alert('You are not Authorised to delete data');
+    this.navigate('', { trigger: true });
   }
 
 });
@@ -308,7 +324,7 @@ Object.defineProperty(exports, "__esModule", {
 
 exports["default"] = function () {
 
-    return "\n<h4> Add Members</h4>\n<form>\n<label>Name <input id=\"name\" type='text' placeholder=\"Enter Name\"  ></label>\n<label>Designation<input id='designation' type='text' placeholder=\"Enter Designation\"  ></label>\n<label>Phone <input id='phone' type='text' placeholder=\"Phone\"  ></label>\n<label>Email <input id='email' type='text' placeholder=\"Email Address\"  ></label>\n<label>Location <input id='loc' type='text' placeholder=\"Location\"></label>\n<label>State <input id='st' type='text' placeholder=\"State\"  ></label>\n<button class='save' data-save-btn='AddTemplate'>Save</button>\n<button class = 'cancel' data-cancel-add=\"HomeTemplate\">Cancel </button>\n</form>\n<button class=\"back-button\" data-to=\"MembersTemplate\">\n    <i class=\"fa fa-arrow-left\"></i>\n</button>\n";
+    return "\n<h4> Add Members</h4>\n<form>\n<label>Name <input id=\"name\" type='text' placeholder=\"Enter Name\"  ></label>\n<label>Designation<input id='designation' type='text' placeholder=\"Enter Designation\"  ></label>\n<label>Phone <input id='phone' type='text' placeholder=\"Phone\"  ></label>\n<label>Email <input id='email' type='text' placeholder=\"Email Address\"  ></label>\n<label>Location <input id='loc' type='text' placeholder=\"Location\"></label>\n<label>State <input id='st' type='text' placeholder=\"State\"  ></label>\n<button class='save' data-save-btn='AddTemplate'>Save</button>\n<button class = 'cancel' data-cancel-add=\"HomeTemplate\">Cancel </button>\n</form>\n<button class=\"add-back-button\" data-to=\"HomeTemplate\">\n    <i class=\"fa fa-arrow-left\"></i>\n</button>\n";
 };
 
 ;

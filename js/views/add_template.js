@@ -13,7 +13,7 @@ return (
 <button class='save' data-save-btn='AddTemplate'>Save</button>
 <button class = 'cancel' data-cancel-add="HomeTemplate">Cancel </button>
 </form>
-<button class="back-button" data-to="MembersTemplate">
+<button class="add-back-button" data-to="HomeTemplate">
     <i class="fa fa-arrow-left"></i>
 </button>
 `);

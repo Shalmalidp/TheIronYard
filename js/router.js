@@ -61,12 +61,18 @@ initialize(appElement){
      });
   })
 
+//cancel button add page
+this.$el.on('click','.cancel',(event)=>{
+  let $button = $(event.currentTarget);
+  let obj = $button.data('to');
+  this.navigate('' , {trigger : true});
+})
 
 //home page update button
 this.$el.on('click','.update',(event)=>{
     let $button = $(event.currentTarget);
     let Obj = $button.data('upd-me');
-    this.navigate(`updateRecord`, {trigger : true });
+    this.navigate(`updateForm`, {trigger : true });
   })
 //home page View button
 this.$el.on('click','.view',(event)=>{
@@ -96,6 +102,13 @@ this.$el.on('click','.back-button',(event)=>{
   let $button = $(event.currentTarget);
   let obj = $button.data('to');
   this.navigate(`members` , {trigger : true});
+})
+
+//arrow on add page
+this.$el.on('click','.add-back-button',(event)=>{
+  let $button = $(event.currentTarget);
+  let obj = $button.data('to');
+  this.navigate('' , {trigger : true});
 })
 
 }, //end of initialize function
@@ -149,11 +162,12 @@ addRecord(){
 
 updateRecord(){
 alert('COMING SOON......');
-
+this.navigate('',{trigger : true});
 },
 
 deleteRecord(){
   alert('You are not Authorised to delete data');
+  this.navigate('',{trigger : true});
 }
 
 
