@@ -253,6 +253,12 @@ exports['default'] = _Backbone2['default'].Router.extend({
       var obj = $button.data('to');
       _this.navigate('', { trigger: true });
     });
+
+    this.$el.on('click', '.collection-back-button', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var obj = $button.data('to');
+      _this.navigate('', { trigger: true });
+    });
   }, //end of initialize function
 
   showSpinner: function showSpinner() {
@@ -319,12 +325,12 @@ module.exports = exports['default'];
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 exports["default"] = function () {
 
-    return "\n<h4> Add Members</h4>\n<form>\n<label>Name <input id=\"name\" type='text' placeholder=\"Enter Name\"  ></label>\n<label>Designation<input id='designation' type='text' placeholder=\"Enter Designation\"  ></label>\n<label>Phone <input id='phone' type='text' placeholder=\"Phone\"  ></label>\n<label>Email <input id='email' type='text' placeholder=\"Email Address\"  ></label>\n<label>Location <input id='loc' type='text' placeholder=\"Location\"></label>\n<label>State <input id='st' type='text' placeholder=\"State\"  ></label>\n<button class='save' data-save-btn='AddTemplate'>Save</button>\n<button class = 'cancel' data-cancel-add=\"HomeTemplate\">Cancel </button>\n</form>\n<button class=\"add-back-button\" data-to=\"HomeTemplate\">\n    <i class=\"fa fa-arrow-left\"></i>\n</button>\n";
+  return "\n<h4> Add Members</h4>\n<form>\n<label class='field-labels'>Name \n</label>\n  <input id=\"name\" type='text' placeholder=\"Enter Name\"  >\n\n<label class='field-labels'>Designation\n</label>\n  <input id='designation' type='text' placeholder=\"Enter Designation\"  >\n\n<label class='field-labels'>Phone \n</label>\n  <input id='phone' type='text' placeholder=\"Phone\"  >\n\n<label class='field-labels'>Email \n</label>\n  <input id='email' type='text' placeholder=\"Email Address\"  >\n\n<label class='field-labels'>Location \n</label>\n  <input id='loc' type='text' placeholder=\"Location\">\n\n<label class='field-labels'>State \n</label>\n  <input id='st' type='text' placeholder=\"State\"  >\n\n<button class='save' data-save-btn='AddTemplate'>Save</button>\n<button class = 'cancel' data-cancel-add=\"HomeTemplate\">Cancel </button>\n</form>\n<button class=\"add-back-button\" data-to=\"HomeTemplate\">\n    <i class=\"fa fa-arrow-left\"></i>\n</button>\n";
 };
 
 ;
@@ -397,7 +403,7 @@ function display(data) {
 }
 
 exports['default'] = function (data) {
-  return '\n    <div class="members-list">\n      <h1>The Iron Yard Family</h1>\n      <div>' + display(data) + '</div>\n    </div>\n\n  ';
+  return '\n    <div class="members-list">\n      <h1>The Iron Yard Family</h1>\n      <div>' + display(data) + '</div>\n    </div>\n    <button class="collection-back-button" data-to="HomeTemplate">\n      <i class="fa fa-arrow-left"></i>\n    </button>\n\n  ';
 };
 
 module.exports = exports['default'];

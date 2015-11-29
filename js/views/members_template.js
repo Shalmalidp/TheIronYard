@@ -13,6 +13,9 @@ export default function(data) {
       <h1>The Iron Yard Family</h1>
       <div>${display(data)}</div>
     </div>
+    <button class="collection-back-button" data-to="HomeTemplate">
+      <i class="fa fa-arrow-left"></i>
+    </button>
 
   `;
 }

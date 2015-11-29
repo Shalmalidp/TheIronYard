@@ -111,6 +111,12 @@ this.$el.on('click','.add-back-button',(event)=>{
   this.navigate('' , {trigger : true});
 })
 
+this.$el.on('click','.collection-back-button',(event)=>{
+  let $button = $(event.currentTarget);
+  let obj = $button.data('to');
+  this.navigate('',{trigger : true});
+})
+
 }, //end of initialize function
 
 

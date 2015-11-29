@@ -3,21 +3,32 @@
 @import "font-awesome";
 
 body {
-  background: #f3de8a;
+  background: #DA9F99;
+  font-family: 'Lobster Two', cursive;
 }
+.fancy{
+    margin:5% auto;
+    padding-top:2%;
+    padding-bottom:2%;
+    width :60%;
+    border-radius: 14px;
+   // border: 0.1em solid black;
+    background-color:#F3BFB2;
 
+}
 .mainpage{
-    width: 30%;
+    width: 80%;
+    background-color:#F3D7CF;
     //height: 450px;
     margin: 7% auto;
-    border: 0.1em solid grey;
+    //border: 0.1em solid grey;
     border-radius: 14px;
     font-family: 'Lobster Two', cursive;
 }
 
-label{
-	padding-left :5px;
-}
+// label{
+// 	padding-left :5px;
+// }
 
 .app{
 	width : 100%;
@@ -26,41 +37,56 @@ label{
 
 }
 
-.back-button{
+//back button on collections screen
+
+.collection-back-button{
     position: absolute;
     top: 0px;
     left: 12px;
     border: 0;
-    background-color:#f3de8a ;
+    background-color:#F3D7CF ;
 }
+
+
+//back arrow on add FORM
+
 .add-back-button{
     position: absolute;
     top: 0px;
     left: 12px;
     border: 0;
-    background-color:#f3de8a ;
+    background-color:#F3D7CF;
 }
 
 .app h3{
 	font-size: 2em;
-    margin: 25px 13%;
+    margin: 25px 27%;
 }
 
 h4{
     font-size: 2em;
-    margin: 5% 26%;
+    margin: 5% 35%;
 }
 h1{
-	margin-left:50px;
+    margin : 10px 170px;
+	//margin-left:50px;
 }
+
+//home page button area
 .button-area{
+        width : 80%;
 	    margin-top: 35%;
+       // border:1px solid black;
+        margin : 80px auto;
+        margin-bottom:16px;
 }
+
+//HOME PAGE BUTTONS
 
 .add{    
 	line-height: 2em;
     border-radius: 10px;
-    margin: 0 40px;
+    margin: 20px 80px;
 }
 
 .update{
@@ -71,60 +97,92 @@ h1{
 .view{
 	line-height: 2em;
     border-radius: 10px;
-    margin: 16px 40px;
+    margin: 16px 80px;
 }
 .delete{
 	line-height: 2em;
     border-radius: 10px;
     margin: 16px 26px;
 }
+//-----------------------------
+//ADD FORM LABELS
 
-#name{   
-	 width: 80%;
-    line-height: 2em;
-    margin: 5px;
+.field-labels{
+    width :260px;
+    margin :10px 20px;
 }
 
-#designation{   
-	 width: 72%;
+
+//ADD FORM INPUTS
+#name{   
+    //text-align:right;
+    width: 70%;
+    line-height: 2em;
+    margin: 5px 40px;
+}
+
+#designation{ 
+    width: 70%;
     line-height: 2em;
     margin: 5px;
 }
 #phone{   
-	 width: 80%;
+    width: 70%;
     line-height: 2em;
-    margin: 5px;
+    margin: 5px 39px;
 }
 #email{   
-	 width: 80%;
+    width: 70%;
     line-height: 2em;
-    margin: 5px;
-    margin-left:10px;
+    margin: 5px 43px;
+    //margin-left:10px;
 }
 #loc{   
-	 width: 77%;
+     width: 70%;
     line-height: 2em;
-    margin: 5px;
+    margin: 5px 27px;
 }
 #st{   
-	 width: 80%;
+    width: 70%;
     line-height: 2em;
-    margin: 5px;
-    margin-left:15px;
+    margin: 5px 46px;
+    //margin-left:15px;
 }
 
+
+//ADD FORM BUTTONS
 .save{
+    width:80px;
 	line-height: 2em;
     border-radius: 5px;
-    margin: 10px 90px;
+    margin: 20px 140px;
 }
 .cancel{
+    width:80px;
 	line-height: 2em;
     border-radius: 5px;
     margin: 10px 30px;
 }
 p{
 	margin-left :5%;
+}
+//----------------------------------
+//SINGLE ENTRIES ON THE COLLECTION
+
+//hover on single list item in collection view
+
+p.single-list-item:hover{
+    cursor :pointer;
+}
+
+
+//on singles detail screen
+.back-button{
+    position: absolute;
+    top: 0px;
+    left: 12px;
+    border: 0;
+    background-color:#F3D7CF ;
 }
 p.single-list-item {
     display: inline-block;
