@@ -3,7 +3,7 @@
 @import "font-awesome";
 
 body {
-  background: #A5ADC1;
+  background: #666;
   font-family: 'Lobster Two', cursive;
 }
 .fancy{
@@ -12,13 +12,13 @@ body {
     padding-bottom:1%;
     width :60%;
     border-radius: 14px;
-   // border: 0.1em solid black;
-    background-color:#33AAC0;
+    border: 0.1em solid black;
+    //background-color:#33AAC0;
 
 }
 .mainpage{
     width: 80%;
-    background-color:#A5ADC1;
+    background-color:#666;
     //height: 450px;
     margin: 7% auto;
     //border: 0.1em solid grey;
@@ -44,7 +44,7 @@ body {
     top: 0px;
     left: 12px;
     border: 0;
-    background-color:#A5ADC1 ;
+    background-color:#666 ;
 }
 
 
@@ -55,7 +55,7 @@ body {
     top: 0px;
     left: 12px;
     border: 0;
-    background-color:#A5ADC1;
+    background-color:#666;
 }
 
 .app h3{
@@ -76,7 +76,7 @@ h1{
 .button-area{
         width : 80%;
 	    margin-top: 35%;
-       background: #A5ADC1;
+       background: #666;
         margin : 80px auto;
         margin-bottom:16px;
 }
@@ -89,7 +89,7 @@ h1{
     margin: 20px 40px;
     display: inline-block;
     width :150px;
-    background :#33AAC0;
+    background :orange;
 }
 
 .update{
@@ -98,7 +98,7 @@ h1{
     margin: 0 20px;
     display: inline-block;
     width :150px;
-    background :#33AAC0;
+    background :orange;
 }
 .view{
 	line-height: 2em;
@@ -106,7 +106,7 @@ h1{
     margin: 15px 38px;
     display: inline-block;
     width :150px;
-    background :#33AAC0;
+    background :orange;
 }
 .delete{
 	line-height: 2em;
@@ -114,7 +114,7 @@ h1{
     margin: 16px 26px;
     display: inline-block;
     width :150px;
-    background :#33AAC0;
+    background :orange;
 }
 //-----------------------------
 //ADD FORM LABELS
@@ -168,12 +168,14 @@ h1{
 	line-height: 2em;
     border-radius: 5px;
     margin: 20px 140px;
+    background:orange;
 }
 .cancel{
     width:80px;
 	line-height: 2em;
     border-radius: 5px;
     margin: 10px 30px;
+    background: orange;
 }
 p{
 	margin-left :5%;
@@ -189,12 +191,17 @@ p.single-list-item:hover{
 
 
 //on singles detail screen
+.eachentry{
+    background :#F3B800;
+    border: 1px solid black;
+    margin-bottom: 1%;
+}
 .back-button{
     position: absolute;
     top: 0px;
     left: 12px;
     border: 0;
-    background-color:#A5ADC1;
+    background-color:#666;
 }
 p.single-list-item {
     display: inline-block;

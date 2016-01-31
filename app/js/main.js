@@ -398,12 +398,12 @@ Object.defineProperty(exports, '__esModule', {
 });
 function display(data) {
   return data.map(function (item) {
-    return '\n      <p class="single-list-item" data-single-id="' + item.objectId + '">' + item.Name + ' </p>\n      <p class="desig" data-desig="' + item.objectId + '">Designation : ' + item.Designation + '</p>\n    ';
+    return '\n      <div class ="eachentry">\n        <p class="single-list-item" data-single-id="' + item.objectId + '">' + item.Name + ' </p>\n        <p class="desig" data-desig="' + item.objectId + '">Designation : ' + item.Designation + '</p>\n      </div>\n    ';
   }).join('');
 }
 
 exports['default'] = function (data) {
-  return '\n    <div class="members-list">\n      <h1>The Iron Yard Atlanta</h1>\n      <div>' + display(data) + '</div>\n    </div>\n    <button class="collection-back-button" data-to="HomeTemplate">\n      <i class="fa fa-arrow-left"></i>\n    </button>\n\n  ';
+  return '\n    <div class="members-list">\n      <h1>The Iron Yard Atlanta</h1>\n      <div >' + display(data) + '</div>\n    </div>\n    <button class="collection-back-button" data-to="HomeTemplate">\n      <i class="fa fa-arrow-left"></i>\n    </button>\n\n  ';
 };
 
 module.exports = exports['default'];
