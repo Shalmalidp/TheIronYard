@@ -10,7 +10,7 @@ function display(data) {
 export default function(data) {
   return `
     <div class="members-list">
-      <h1>The Iron Yard Family</h1>
+      <h1>The Iron Yard Atlanta</h1>
       <div>${display(data)}</div>
     </div>
     <button class="collection-back-button" data-to="HomeTemplate">

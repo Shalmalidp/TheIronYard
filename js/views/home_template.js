@@ -1,7 +1,7 @@
 export default function(){
   return `
     <div class ="home" >
-      <h3> The Iron Yard Family </h3>
+      <h3> The Iron Yard Atlanta</h3>
       <div class    = "button-area">
       <button class ="add" data-add-me="AddTemplate" > Add Records </button>
       <button class ="update" data-upd-me="UpdateTemplate" >Update Records</button>

@@ -2025,20 +2025,20 @@ html {
   content: ""; }
 
 body {
-  background: #DA9F99;
+  background: #A5ADC1;
   font-family: 'Lobster Two', cursive; }
 
 .fancy {
   margin: 5% auto;
-  padding-top: 2%;
-  padding-bottom: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
   width: 60%;
   border-radius: 14px;
-  background-color: #F3BFB2; }
+  background-color: #33AAC0; }
 
 .mainpage {
   width: 80%;
-  background-color: #F3D7CF;
+  background-color: #A5ADC1;
   margin: 7% auto;
   border-radius: 14px;
   font-family: 'Lobster Two', cursive; }
@@ -2053,14 +2053,14 @@ body {
   top: 0px;
   left: 12px;
   border: 0;
-  background-color: #F3D7CF; }
+  background-color: #A5ADC1; }
 
 .add-back-button {
   position: absolute;
   top: 0px;
   left: 12px;
   border: 0;
-  background-color: #F3D7CF; }
+  background-color: #A5ADC1; }
 
 .app h3 {
   font-size: 2em;
@@ -2071,33 +2071,47 @@ h4 {
   margin: 5% 35%; }
 
 h1 {
-  margin: 10px 170px; }
+  margin: 10px 170px;
+  width: 100%; }
 
 .button-area {
   width: 80%;
   margin-top: 35%;
+  background: #A5ADC1;
   margin: 80px auto;
   margin-bottom: 16px; }
 
 .add {
   line-height: 2em;
-  border-radius: 10px;
-  margin: 20px 80px; }
+  border-radius: 5px;
+  margin: 20px 40px;
+  display: inline-block;
+  width: 150px;
+  background: #33AAC0; }
 
 .update {
   line-height: 2em;
-  border-radius: 10px;
-  margin: 0 40px; }
+  border-radius: 5px;
+  margin: 0 20px;
+  display: inline-block;
+  width: 150px;
+  background: #33AAC0; }
 
 .view {
   line-height: 2em;
-  border-radius: 10px;
-  margin: 16px 80px; }
+  border-radius: 5px;
+  margin: 15px 38px;
+  display: inline-block;
+  width: 150px;
+  background: #33AAC0; }
 
 .delete {
   line-height: 2em;
-  border-radius: 10px;
-  margin: 16px 26px; }
+  border-radius: 5px;
+  margin: 16px 26px;
+  display: inline-block;
+  width: 150px;
+  background: #33AAC0; }
 
 .field-labels {
   width: 260px;
@@ -2156,7 +2170,7 @@ p.single-list-item:hover {
   top: 0px;
   left: 12px;
   border: 0;
-  background-color: #F3D7CF; }
+  background-color: #A5ADC1; }
 
 p.single-list-item {
   display: inline-block;
@@ -2166,7 +2180,9 @@ p.desig {
   display: inline-block; }
 
 img#photo {
-  width: 105px;
-  margin: 26px 131px; }
+  width: 205px;
+  border: 2px solid #33AAC0;
+  border-radius: 15px;
+  margin: 26px 200px; }
 
 /*# sourceMappingURL=main.css.map */

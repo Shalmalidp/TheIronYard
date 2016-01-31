@@ -344,7 +344,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports["default"] = function () {
-  return "\n    <div class =\"home\" >\n      <h3> The Iron Yard Family </h3>\n      <div class    = \"button-area\">\n      <button class =\"add\" data-add-me=\"AddTemplate\" > Add Records </button>\n      <button class =\"update\" data-upd-me=\"UpdateTemplate\" >Update Records</button>\n      <button class =\"view\" data-view-me=\"members\">View Database</button>\n      <button class =\"delete\" data-del-me=\"Home\">Delete Records</button>  \n    </div>\n      ";
+  return "\n    <div class =\"home\" >\n      <h3> The Iron Yard Atlanta</h3>\n      <div class    = \"button-area\">\n      <button class =\"add\" data-add-me=\"AddTemplate\" > Add Records </button>\n      <button class =\"update\" data-upd-me=\"UpdateTemplate\" >Update Records</button>\n      <button class =\"view\" data-view-me=\"members\">View Database</button>\n      <button class =\"delete\" data-del-me=\"Home\">Delete Records</button>  \n    </div>\n      ";
 };
 
 ;
@@ -403,7 +403,7 @@ function display(data) {
 }
 
 exports['default'] = function (data) {
-  return '\n    <div class="members-list">\n      <h1>The Iron Yard Family</h1>\n      <div>' + display(data) + '</div>\n    </div>\n    <button class="collection-back-button" data-to="HomeTemplate">\n      <i class="fa fa-arrow-left"></i>\n    </button>\n\n  ';
+  return '\n    <div class="members-list">\n      <h1>The Iron Yard Atlanta</h1>\n      <div>' + display(data) + '</div>\n    </div>\n    <button class="collection-back-button" data-to="HomeTemplate">\n      <i class="fa fa-arrow-left"></i>\n    </button>\n\n  ';
 };
 
 module.exports = exports['default'];
